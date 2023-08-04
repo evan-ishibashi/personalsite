@@ -82,6 +82,14 @@ h2 {
 
 }
 
+#work-section div b {
+  position: absolute;
+  background-color: transparent;
+  font-size: large;
+  width: 100%;
+  margin-top: -30px;
+}
+
 #work-section div img {
   width: 100%;
   height: 100%;
@@ -90,24 +98,6 @@ h2 {
 #work-section div img:hover {
   opacity: 80%;
 }
-
-/* #memoryhome {
-  width: 100%;
-  height: 100%;
-} */
-
-/* #memoryhome:hover {
-  opacity: 80%;
-
-} */
-
-/* #memehome {
-  width: 100%;
-  height: 100%;
-}
-
-#memehome:hover {
-} */
 
 .about p {
   font-size: 30px;
