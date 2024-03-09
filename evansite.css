@@ -74,11 +74,8 @@ h2 {
 }
 
 #work-section div {
-  border: 1px solid black;
-  width: 400px;
-  height: 400px;
-  margin-right: 50px;
   display: inline-block;
+  margin-top: 60px;
 
 }
 
