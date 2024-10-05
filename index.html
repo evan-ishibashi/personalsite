@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
   <link rel="stylesheet" href="evansite.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+
 <body>
   <header>
     <button class="logo">
@@ -21,39 +23,107 @@
     </nav>
   </header>
   <h1><i>Evan</i> is a software engineer, based in Los Angeles. </h1>
-<div class="work">
-  <a id="workheader"></a><h2><b>Work</b></h2>
-  <div id="work-section" class="mywork">
-    <div id="Insight">
-      <b data-url="https://1ginsight.netlify.app/">Honda Insight (Python Web Scraper / Car Listings Hub)</b>
-      <img src="images/insight_screenshot.png" alt="insight-website" id="insight" data-url="https://1ginsight.netlify.app/" data-name = 'Insight'>
-    </div>
-    <div id="basketball">
-      <b>Basketball Shot Tracker (OpenCV and ML)</b>
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/-kA7JVYl2MA?si=F3rxHI6gav-0WY-L" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+  <div class="work">
+    <a id="workheader"></a>
+    <h2><b>Work</b></h2>
+    <div id="work-section" class="mywork">
+      <div id="whogotnext">
+        <b data-url="https://whogotnext.netlify.app/">Who Got Next?</b>
+        <img src="images/whogotnext.png" alt="whogotnext-website" id="whogotnext"
+          data-url="https://whogotnext.netlify.app/" data-name='Whogotnext'>
+        <br>
+        <br>
+        <p>Basketball Game Scheduler and Score Keeper</p>
+        <br>
+        <p>TypeScript | React</p>
+        <br>
+        <p>Solving a real-life problem: Tracking who is on next at pick-up basketball, and score keeping.</p>
+        <br>
+        <p>
+          I absolutely love this application because I use it every week when
+          I play basketball at church. I painfully watched as my friend Alvin
+          kept track of the order of over 30 people for who was playing next -
+          all on pen and paper. That's when the lightbulb went off in my head to build an app
+          that kept it all organized.
+        </p>
+        <br>
+        <hr>
+      </div>
+      <div id="Insight">
+        <b data-url="https://1ginsight.netlify.app/">Honda Insight Hub</b>
+        <img src="images/insight_screenshot.png" alt="insight-website" id="insight"
+          data-url="https://1ginsight.netlify.app/" data-name='Insight'>
+        <br>
+        <br>
+        <p>Used Car Marketplace Web Scraper</p>
+        <br>
+        <p>Python | Flask | Selenium | TypeScript | React </p>
+        <br>
+        <p>
+          One of the quirky cars that I drive is Honda's first ever hybrid car
+          that looks like a jelly bean. I have multiple friends who were curious and
+          ended up buying one for themselves, so I wanted to create a central
+          place for all things Honda Insight. </p>
+        <p>
+          <br>
+          I Leveraged Selenium to web
+          scrape, clean, and process used car market listings data from sites like
+          Facebook Marketplace, OfferUp, LKQ, and aggregated all the listings
+          into one place, and used ChartJS to build a price trends metrics
+          dashboard that enables users to make informed buying decisions.
+        </p>
+        <br>
+        <hr>
+      </div>
+      <div id="basketball">
+        <b>Computer Vision Basketball Shot Tracker</b>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/-kA7JVYl2MA?si=F3rxHI6gav-0WY-L"
+          title="YouTube video player" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen></iframe>
+        <br>
+        <br>
+        <p>Using Computer Vision and Machine Learning to Track Basketball Shot Makes / Misses</p>
+        <br>
+        <p>OpenCV | YOLO | Python | Machine Learning </p>
+        <br>
+        <p>I wanted to have technology track my basketball shooting percentage for me, so I built
+          an application that could do it for me using computer vision and machine learning. I Leveraged
+          a deep learning object recognition model called YOLO, and trained it
+          on 1000s of photos that I manually labeled. Combined with OpenCV, the model
+        was able to make real-time inference on my shot attempts and makes on a video the model had never seen before.</p>
+        <br>
+        <hr>
+      </div>
     </div>
   </div>
-</div>
-<div class="about">
-  <a id="aboutheader"><h2><b>About Me</b></h2></a>
+  <div class="about">
+    <a id="aboutheader">
+      <h2><b>About Me</b></h2>
+    </a>
     <p id="bio">
-      After spending my early career in recruiting at Google and selling Adtech Software at a startup, I decided to make a complete pivot into software engineering and have been loving it.
+      After spending my early career in recruiting at Google and selling Adtech Software at a startup, I decided to make
+      a complete pivot into software engineering and have been loving it.
       <br><br>
       While I'm away from my desk, you'll catch me shooting hoops, surfing or snowboarding.
       <br><br>
       See my resume <a href="files/Evan_Resume_2024.pdf"><u>here</u></a>
     </p>
     <img src="images/IMG_9477.JPG" alt="evanpic">
-</div>
+  </div>
 </body>
 <footer>
   <div class="contact">
-    <a id="contactme"><h3>Connect with me:</h3></a>
+    <a id="contactme">
+      <h3>Connect with me:</h3>
+    </a>
     <div>
       <a href="https://github.com/evan-ishibashi" class="fa fa-github" target="_blank" rel="noopener noreferrer"></a>
-      <a href="https://www.linkedin.com/in/evanishibashi/" class="fa fa-linkedin" target="_blank" rel="noopener noreferrer"></a>
+      <a href="https://www.linkedin.com/in/evanishibashi/" class="fa fa-linkedin" target="_blank"
+        rel="noopener noreferrer"></a>
     </div>
   </div>
 </footer>
 <script src="evansite.js"></script>
+
 </html>
