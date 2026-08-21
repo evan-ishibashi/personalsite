@@ -156,3 +156,173 @@ footer {
 
   }
 } */
+
+/* ---------- basketball shot animation ---------- */
+
+.bb-scene {
+  padding: 40px 20% 0;
+}
+
+.bb-court {
+  display: block;
+  width: 100%;
+  max-width: 460px;
+  height: auto;
+  margin: 0 auto;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.bb-court:focus-visible {
+  outline: 2px dashed rgb(171, 186, 126);
+  outline-offset: 14px;
+  border-radius: 10px;
+}
+
+.bb-hint {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 15px;
+  letter-spacing: 0.09em;
+  color: #8f8f7c;
+  transition: opacity 0.35s ease;
+}
+
+.bb-scene:hover .bb-hint,
+.bb-court.is-live ~ .bb-hint {
+  opacity: 0.3;
+}
+
+.bb-hint span {
+  color: inherit;
+  font-size: inherit;
+  letter-spacing: inherit;
+}
+
+.bb-hint-tap {
+  display: none;
+}
+
+/* touch devices have no hover, so ask for a tap instead */
+@media (hover: none) {
+  .bb-hint-hover { display: none; }
+  .bb-hint-tap { display: inline; }
+}
+
+/* the hoop needs more room than the site's 20% gutters leave on a phone */
+@media (max-width: 700px) {
+  .bb-scene { padding: 24px 6% 0; }
+  .bb-hint { font-size: 14px; }
+}
+
+.bb-net path {
+  fill: none;
+  stroke: #4a4a42;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+}
+
+.bb-net-back path {
+  opacity: 0.45;
+}
+
+.bb-net-front path {
+  opacity: 0.85;
+}
+
+/* transform boxes: the ball spins about its own centre, the net hinges on the rim */
+.bb-ball-x,
+.bb-ball-y,
+.bb-ball,
+.bb-score {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.bb-ball-x,
+.bb-ball-y,
+.bb-ball {
+  will-change: transform;
+}
+
+.bb-net-back,
+.bb-net-front {
+  transform-box: view-box;
+  transform-origin: 290px 112px;
+}
+
+.bb-score {
+  opacity: 0;
+}
+
+/* the shot only runs while the scene is hovered, focused or tapped */
+:is(.bb-court:hover, .bb-court:focus-visible, .bb-court.is-live) .bb-ball-x {
+  animation: bb-flight-x 2.4s linear infinite;
+}
+
+:is(.bb-court:hover, .bb-court:focus-visible, .bb-court.is-live) .bb-ball-y {
+  animation: bb-flight-y 2.4s infinite;
+}
+
+:is(.bb-court:hover, .bb-court:focus-visible, .bb-court.is-live) .bb-ball {
+  animation: bb-backspin 2.4s linear infinite;
+}
+
+:is(.bb-court:hover, .bb-court:focus-visible, .bb-court.is-live) .bb-net-back,
+:is(.bb-court:hover, .bb-court:focus-visible, .bb-court.is-live) .bb-net-front {
+  animation: bb-swish 2.4s ease-out infinite;
+}
+
+:is(.bb-court:hover, .bb-court:focus-visible, .bb-court.is-live) .bb-score {
+  animation: bb-score 2.4s ease-out infinite;
+}
+
+/* horizontal travel is linear, the way a real shot behaves */
+@keyframes bb-flight-x {
+  0%   { transform: translateX(0);     opacity: 1; }
+  4%   { transform: translateX(-10px); opacity: 1; }
+  52%  { transform: translateX(220px); opacity: 1; }
+  70%  { transform: translateX(226px); opacity: 1; }
+  78%  { transform: translateX(226px); opacity: 0; }
+  79%  { transform: translateX(0);     opacity: 0; }
+  94%  { transform: translateX(0);     opacity: 0; }
+  100% { transform: translateX(0);     opacity: 1; }
+}
+
+/* vertical travel carries the easing, which is what makes the path read as an arc */
+@keyframes bb-flight-y {
+  0%   { transform: translateY(0);      animation-timing-function: ease-in; }
+  4%   { transform: translateY(9px);    animation-timing-function: cubic-bezier(0.15, 0.6, 0.45, 1); }
+  38%  { transform: translateY(-196px); animation-timing-function: cubic-bezier(0.55, 0, 0.85, 0.5); }
+  52%  { transform: translateY(-128px); animation-timing-function: cubic-bezier(0.4, 0, 0.9, 0.6); }
+  70%  { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes bb-backspin {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(-720deg); }
+}
+
+@keyframes bb-swish {
+  0%, 50% { transform: scaleY(1) skewX(0deg); }
+  56%     { transform: scaleY(1.2) skewX(-4deg); }
+  62%     { transform: scaleY(0.93) skewX(5deg); }
+  70%     { transform: scaleY(1.09) skewX(-3deg); }
+  78%     { transform: scaleY(0.97) skewX(1.5deg); }
+  88%, 100% { transform: scaleY(1) skewX(0deg); }
+}
+
+@keyframes bb-score {
+  0%, 58%   { opacity: 0; transform: translateY(0); }
+  66%       { opacity: 1; transform: translateY(-8px); }
+  86%       { opacity: 1; transform: translateY(-24px); }
+  96%, 100% { opacity: 0; transform: translateY(-36px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :is(.bb-court:hover, .bb-court:focus-visible, .bb-court.is-live)
+    :is(.bb-ball-x, .bb-ball-y, .bb-ball, .bb-net-back, .bb-net-front, .bb-score) {
+    animation: none;
+  }
+}
