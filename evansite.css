@@ -77,6 +77,9 @@ h2 {
   display: inline-block;
   margin-top: 60px;
   margin-bottom: 60px;
+  /* the title below is absolutely positioned at 100% width; without this it
+     measures against the viewport instead of its column and runs off-screen */
+  position: relative;
 }
 
 #work-section div b {
@@ -360,4 +363,15 @@ footer {
   }
 
   .scene__label { font-size: 14px; }
+}
+
+/* the video sized itself to a hardcoded 560px, which pushed the whole page
+   wider than a phone screen; let it scale with its column instead */
+#work-section iframe {
+  display: block;
+  width: 100%;
+  max-width: 560px;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  border: 0;
 }
