@@ -24,73 +24,72 @@
   </header>
   <h1><i>Evan</i> is a software engineer, based in New York City. </h1>
 
-  <!-- basketball hover animation -->
-  <div class="bb-scene">
-    <svg class="bb-court" viewBox="0 0 420 300" tabindex="0" role="img"
-      aria-label="Illustration of a basketball arcing into a hoop. Hover or tap to take the shot.">
+  <!-- Hover scenes. Each one is a link with a little animation on it.
+       See "hover scenes" in evansite.css for how to add another. -->
+  <div class="scenes">
+    <a class="scene scene--basketball" href="#whogotnext">
+      <svg class="scene__art" viewBox="0 0 420 300" aria-hidden="true" focusable="false">
 
-      <!-- pole + backboard -->
-      <rect x="404" y="26" width="12" height="266" rx="5" fill="#6f7358"></rect>
-      <rect x="312" y="34" width="96" height="70" rx="4" fill="#fffdf3" stroke="#2f2f2f" stroke-width="3"></rect>
-      <rect x="330" y="58" width="44" height="34" rx="2" fill="none" stroke="#e2622a" stroke-width="3"></rect>
-      <rect x="326" y="108" width="26" height="7" rx="3" fill="#c4521f"></rect>
+        <!-- pole + backboard -->
+        <rect x="404" y="26" width="12" height="266" rx="5" fill="#6f7358"></rect>
+        <rect x="312" y="34" width="96" height="70" rx="4" fill="#fffdf3" stroke="#2f2f2f" stroke-width="3"></rect>
+        <rect x="330" y="58" width="44" height="34" rx="2" fill="none" stroke="#e2622a" stroke-width="3"></rect>
+        <rect x="328" y="105" width="24" height="7" rx="3" fill="#c4521f"></rect>
 
-      <!-- back of rim -->
-      <path d="M 248 112 A 42 9 0 0 1 332 112" fill="none" stroke="#c4521f" stroke-width="5" stroke-linecap="round"></path>
+        <!-- back of rim -->
+        <path d="M 248 112 A 42 9 0 0 1 332 112" fill="none" stroke="#c4521f" stroke-width="5" stroke-linecap="round"></path>
 
-      <!-- back half of the net -->
-      <g class="bb-net bb-net-back">
-        <path d="M 253.6 107.5 L 270.9 167.5"></path>
-        <path d="M 269 104.2 L 279 165.7"></path>
-        <path d="M 290 103 L 290 165"></path>
-        <path d="M 311 104.2 L 301 165.7"></path>
-        <path d="M 326.4 107.5 L 309.1 167.5"></path>
-        <path d="M 256 135.2 A 34 7.4 0 0 1 324 135.2"></path>
-        <path d="M 263 155.5 A 27 6 0 0 1 317 155.5"></path>
-        <path d="M 268 170 A 22 5 0 0 1 312 170"></path>
-      </g>
+        <!-- back half of the net -->
+        <g class="bb-net bb-net-back">
+          <path d="M 253.6 107.5 L 270.9 167.5"></path>
+          <path d="M 269 104.2 L 279 165.7"></path>
+          <path d="M 290 103 L 290 165"></path>
+          <path d="M 311 104.2 L 301 165.7"></path>
+          <path d="M 326.4 107.5 L 309.1 167.5"></path>
+          <path d="M 256 135.2 A 34 7.4 0 0 1 324 135.2"></path>
+          <path d="M 263 155.5 A 27 6 0 0 1 317 155.5"></path>
+          <path d="M 268 170 A 22 5 0 0 1 312 170"></path>
+        </g>
 
-      <!-- the ball: nested groups keep the arc, the spin and the reset independent -->
-      <g transform="translate(70 240)">
-        <g class="bb-ball-x">
-          <g class="bb-ball-y">
-            <g class="bb-ball">
-              <circle r="19" fill="#e07b39" stroke="#8a4420" stroke-width="1.7"></circle>
-              <g fill="none" stroke="#8a4420" stroke-width="1.7" stroke-linecap="round">
-                <path d="M -19 0 L 19 0"></path>
-                <path d="M 0 -19 L 0 19"></path>
-                <path d="M -12.9 -14 Q -22 0 -12.9 14"></path>
-                <path d="M 12.9 -14 Q 22 0 12.9 14"></path>
+        <!-- the ball: nested groups keep the arc, the spin and the reset independent -->
+        <g transform="translate(70 240)">
+          <g class="bb-ball-x">
+            <g class="bb-ball-y">
+              <g class="bb-ball">
+                <circle r="19" fill="#e07b39" stroke="#8a4420" stroke-width="1.7"></circle>
+                <g fill="none" stroke="#8a4420" stroke-width="1.7" stroke-linecap="round">
+                  <path d="M -19 0 L 19 0"></path>
+                  <path d="M 0 -19 L 0 19"></path>
+                  <path d="M -12.9 -14 Q -22 0 -12.9 14"></path>
+                  <path d="M 12.9 -14 Q 22 0 12.9 14"></path>
+                </g>
+                <circle cx="-7" cy="-8" r="5" fill="#ffffff" opacity="0.22"></circle>
               </g>
-              <circle cx="-7" cy="-8" r="5" fill="#ffffff" opacity="0.22"></circle>
             </g>
           </g>
         </g>
-      </g>
 
-      <!-- front half of the net, drawn over the ball so it falls *through* -->
-      <g class="bb-net bb-net-front">
-        <path d="M 332 112 L 312 170"></path>
-        <path d="M 326.4 116.5 L 309.1 172.5"></path>
-        <path d="M 311 119.8 L 301 174.3"></path>
-        <path d="M 290 121 L 290 175"></path>
-        <path d="M 269 119.8 L 279 174.3"></path>
-        <path d="M 253.6 116.5 L 270.9 172.5"></path>
-        <path d="M 248 112 L 268 170"></path>
-        <path d="M 256 135.2 A 34 7.4 0 0 0 324 135.2"></path>
-        <path d="M 263 155.5 A 27 6 0 0 0 317 155.5"></path>
-        <path d="M 268 170 A 22 5 0 0 0 312 170"></path>
-      </g>
+        <!-- front half of the net, drawn over the ball so it falls *through* -->
+        <g class="bb-net bb-net-front">
+          <path d="M 332 112 L 312 170"></path>
+          <path d="M 326.4 116.5 L 309.1 172.5"></path>
+          <path d="M 311 119.8 L 301 174.3"></path>
+          <path d="M 290 121 L 290 175"></path>
+          <path d="M 269 119.8 L 279 174.3"></path>
+          <path d="M 253.6 116.5 L 270.9 172.5"></path>
+          <path d="M 248 112 L 268 170"></path>
+          <path d="M 256 135.2 A 34 7.4 0 0 0 324 135.2"></path>
+          <path d="M 263 155.5 A 27 6 0 0 0 317 155.5"></path>
+          <path d="M 268 170 A 22 5 0 0 0 312 170"></path>
+        </g>
 
-      <!-- front of rim -->
-      <path d="M 248 112 A 42 9 0 0 0 332 112" fill="none" stroke="#e2622a" stroke-width="5" stroke-linecap="round"></path>
+        <!-- front of rim -->
+        <path d="M 248 112 A 42 9 0 0 0 332 112" fill="none" stroke="#e2622a" stroke-width="5" stroke-linecap="round"></path>
 
-      <text class="bb-score" x="356" y="212" text-anchor="middle" font-size="26" font-weight="700" fill="#6b7a3a">+2</text>
-    </svg>
-    <p class="bb-hint">
-      <span class="bb-hint-hover">hover to shoot</span>
-      <span class="bb-hint-tap">tap to shoot</span>
-    </p>
+        <text class="bb-score" x="356" y="212" text-anchor="middle" font-size="22" font-weight="700" fill="#6b7a3a">+2</text>
+      </svg>
+      <span class="scene__label">Who Got Next?</span>
+    </a>
   </div>
   <div class="work">
     <a id="workheader"></a>
@@ -98,7 +97,7 @@
     <div id="work-section" class="mywork">
       <div id="ask-pastor-kim">
         <b data-url="https://ask-pastor-kim.netlify.app/">Ask Pastor Kim AI Chatbot</b>
-        <img src="images/ask-pastor-kim.png" alt="ask-pastor-kim-website" id="ask-pastor-kim"
+        <img src="images/ask-pastor-kim.png" alt="ask-pastor-kim-website"
           data-url="https://ask-pastor-kim.netlify.app/" data-name='ask-pastor-kim'>
         <br>
         <br>
@@ -118,7 +117,7 @@
       </div>
       <div id="whogotnext">
         <b data-url="https://whogotnext.netlify.app/">Who Got Next?</b>
-        <img src="images/whogotnext.png" alt="whogotnext-website" id="whogotnext"
+        <img src="images/whogotnext.png" alt="whogotnext-website"
           data-url="https://whogotnext.netlify.app/" data-name='Whogotnext'>
         <br>
         <br>

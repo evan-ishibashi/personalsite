@@ -157,68 +157,82 @@ footer {
   }
 } */
 
-/* ---------- basketball shot animation ---------- */
+/* ==========================================================================
+   Hover scenes
 
-.bb-scene {
-  padding: 40px 20% 0;
+   A scene is a link with a small animation on it: the animation plays on
+   hover (or on keyboard focus, or once when it scrolls into view on a
+   phone), and clicking it goes wherever the link points.
+
+   To add another scene:
+     1. Mark it up as
+          <a class="scene scene--yours" href="#target">
+            <svg class="scene__art" viewBox="0 0 420 300" aria-hidden="true"
+                 focusable="false"> ...art... </svg>
+            <span class="scene__label">Where it goes</span>
+          </a>
+        inside a <div class="scenes"> (several scenes sit in a row and wrap).
+     2. Give the moving parts their own classes and keyframes below.
+     3. Drive them from the shared `.scene.is-playing` hook, the way
+        `.scene--basketball` does, so hover, focus and the on-screen
+        trigger all work without any extra wiring.
+
+   Keep the last keyframe of every animation identical to the resting pose.
+   The animation is removed when it finishes, so anything else snaps.
+   ========================================================================== */
+
+.scenes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+  /* narrower gutters than the text blocks: two scenes have to fit side by
+     side on a laptop, which they cannot inside the site's 20% padding */
+  padding: 40px 10% 0;
 }
 
-.bb-court {
+.scene {
+  display: block;
+  flex: 1 1 300px;
+  max-width: 460px;
+  text-decoration: none;
+}
+
+.scene__art {
   display: block;
   width: 100%;
-  max-width: 460px;
   height: auto;
-  margin: 0 auto;
-  cursor: pointer;
   background-color: transparent;
 }
 
-.bb-court:focus-visible {
+.scene__label {
+  display: block;
+  margin-top: 14px;
+  text-align: center;
+  font-size: 15px;
+  letter-spacing: 0.09em;
+  color: #8f8f7c;
+  transition: color 0.25s ease;
+}
+
+.scene__label::after {
+  content: " \2193";
+}
+
+.scene:hover .scene__label,
+.scene:focus-visible .scene__label {
+  color: #55584a;
+}
+
+.scene:focus-visible {
   outline: 2px dashed rgb(171, 186, 126);
   outline-offset: 14px;
   border-radius: 10px;
 }
 
-.bb-hint {
-  margin-top: 16px;
-  text-align: center;
-  font-size: 15px;
-  letter-spacing: 0.09em;
-  color: #8f8f7c;
-  transition: opacity 0.35s ease;
-}
-
-.bb-court.is-live ~ .bb-hint {
-  opacity: 0.3;
-}
-
-@media (hover: hover) {
-  .bb-scene:hover .bb-hint {
-    opacity: 0.3;
-  }
-}
-
-.bb-hint span {
-  color: inherit;
-  font-size: inherit;
-  letter-spacing: inherit;
-}
-
-.bb-hint-tap {
-  display: none;
-}
-
-/* touch devices have no hover, so ask for a tap instead */
-@media (hover: none) {
-  .bb-hint-hover { display: none; }
-  .bb-hint-tap { display: inline; }
-}
-
-/* the hoop needs more room than the site's 20% gutters leave on a phone */
-@media (max-width: 700px) {
-  .bb-scene { padding: 24px 6% 0; }
-  .bb-hint { font-size: 14px; }
-}
+/* --------------------------------------------------------------------------
+   Scene: basketball
+   -------------------------------------------------------------------------- */
 
 .bb-net path {
   fill: none;
@@ -227,15 +241,10 @@ footer {
   stroke-linecap: round;
 }
 
-.bb-net-back path {
-  opacity: 0.45;
-}
+.bb-net-back path { opacity: 0.45; }
+.bb-net-front path { opacity: 0.85; }
 
-.bb-net-front path {
-  opacity: 0.85;
-}
-
-/* transform boxes: the ball spins about its own centre, the net hinges on the rim */
+/* the ball spins about its own centre, the net hinges on the rim */
 .bb-ball-x,
 .bb-ball-y,
 .bb-ball,
@@ -256,102 +265,99 @@ footer {
   transform-origin: 290px 112px;
 }
 
-.bb-score {
-  opacity: 0;
+.bb-score { opacity: 0; }
+
+/* One shot per trigger, not a loop: `.is-playing` is added by the script on
+   hover, on focus, and once when the scene scrolls into view, then removed
+   when the animation ends. */
+.scene--basketball.is-playing .bb-ball-x {
+  animation: bb-flight-x 1.9s linear;
 }
 
-/* the shot runs while the scene is focused or tapped */
-:is(.bb-court:focus-visible, .bb-court.is-live) .bb-ball-x {
-  animation: bb-flight-x 2.4s linear infinite;
+.scene--basketball.is-playing .bb-ball-y {
+  animation: bb-flight-y 1.9s;
 }
 
-:is(.bb-court:focus-visible, .bb-court.is-live) .bb-ball-y {
-  animation: bb-flight-y 2.4s infinite;
+.scene--basketball.is-playing .bb-ball {
+  animation: bb-backspin 1.9s linear;
 }
 
-:is(.bb-court:focus-visible, .bb-court.is-live) .bb-ball {
-  animation: bb-backspin 2.4s linear infinite;
+.scene--basketball.is-playing :is(.bb-net-back, .bb-net-front) {
+  animation: bb-swish 1.9s ease-out;
 }
 
-:is(.bb-court:focus-visible, .bb-court.is-live) :is(.bb-net-back, .bb-net-front) {
-  animation: bb-swish 2.4s ease-out infinite;
+.scene--basketball.is-playing .bb-score {
+  animation: bb-score 1.9s ease-out;
 }
 
-:is(.bb-court:focus-visible, .bb-court.is-live) .bb-score {
-  animation: bb-score 2.4s ease-out infinite;
-}
-
-/* ...and on hover, but only where a pointer can really hover. Touch browsers
-   leave a sticky :hover on the last element tapped, which would fight the
-   tap-to-toggle above and leave the shot running after a tap meant to stop it. */
-@media (hover: hover) {
-  .bb-court:hover .bb-ball-x {
-    animation: bb-flight-x 2.4s linear infinite;
-  }
-
-  .bb-court:hover .bb-ball-y {
-    animation: bb-flight-y 2.4s infinite;
-  }
-
-  .bb-court:hover .bb-ball {
-    animation: bb-backspin 2.4s linear infinite;
-  }
-
-  .bb-court:hover :is(.bb-net-back, .bb-net-front) {
-    animation: bb-swish 2.4s ease-out infinite;
-  }
-
-  .bb-court:hover .bb-score {
-    animation: bb-score 2.4s ease-out infinite;
-  }
-}
-
-/* horizontal travel is linear, the way a real shot behaves */
+/* Horizontal travel is linear, the way a real shot behaves. The ball is
+   already clipped below the frame when it fades, so the jump back to the
+   start is never visible; only the ease back in at rest is. */
 @keyframes bb-flight-x {
   0%   { transform: translateX(0);     opacity: 1; }
-  4%   { transform: translateX(-10px); opacity: 1; }
+  6%   { transform: translateX(-10px); opacity: 1; }
   52%  { transform: translateX(220px); opacity: 1; }
   70%  { transform: translateX(226px); opacity: 1; }
-  78%  { transform: translateX(226px); opacity: 0; }
-  79%  { transform: translateX(0);     opacity: 0; }
-  94%  { transform: translateX(0);     opacity: 0; }
+  72%  { transform: translateX(226px); opacity: 0; }
+  73%  { transform: translateX(0);     opacity: 0; }
+  88%  { transform: translateX(0);     opacity: 0; }
   100% { transform: translateX(0);     opacity: 1; }
 }
 
-/* vertical travel carries the easing, which is what makes the path read as an arc */
+/* Vertical travel carries the easing, which is what makes the path read as
+   an arc rather than a slide. */
 @keyframes bb-flight-y {
   0%   { transform: translateY(0);      animation-timing-function: ease-in; }
-  4%   { transform: translateY(9px);    animation-timing-function: cubic-bezier(0.15, 0.6, 0.45, 1); }
-  38%  { transform: translateY(-196px); animation-timing-function: cubic-bezier(0.55, 0, 0.85, 0.5); }
+  6%   { transform: translateY(9px);    animation-timing-function: cubic-bezier(0.15, 0.6, 0.45, 1); }
+  32%  { transform: translateY(-196px); animation-timing-function: cubic-bezier(0.55, 0, 0.85, 0.5); }
   52%  { transform: translateY(-128px); animation-timing-function: cubic-bezier(0.4, 0, 0.9, 0.6); }
-  70%  { transform: translateY(-6px); }
+  70%  { transform: translateY(110px); }
+  73%  { transform: translateY(0); }
   100% { transform: translateY(0); }
 }
 
+/* two whole turns, so the resting pose and the final frame are identical */
 @keyframes bb-backspin {
   0%   { transform: rotate(0deg); }
+  70%  { transform: rotate(-720deg); }
   100% { transform: rotate(-720deg); }
 }
 
+/* the net gives, then settles: squashing across as it stretches down reads
+   as a net absorbing a ball rather than rubber */
 @keyframes bb-swish {
-  0%, 50% { transform: scaleY(1) skewX(0deg); }
-  56%     { transform: scaleY(1.2) skewX(-4deg); }
-  62%     { transform: scaleY(0.93) skewX(5deg); }
-  70%     { transform: scaleY(1.09) skewX(-3deg); }
-  78%     { transform: scaleY(0.97) skewX(1.5deg); }
-  88%, 100% { transform: scaleY(1) skewX(0deg); }
+  0%, 50%   { transform: scale(1, 1); }
+  56%       { transform: scale(0.97, 1.16); }
+  63%       { transform: scale(1.02, 0.96); }
+  71%       { transform: scale(0.99, 1.06); }
+  80%       { transform: scale(1.01, 0.99); }
+  90%, 100% { transform: scale(1, 1); }
 }
 
 @keyframes bb-score {
-  0%, 58%   { opacity: 0; transform: translateY(0); }
-  66%       { opacity: 1; transform: translateY(-8px); }
-  86%       { opacity: 1; transform: translateY(-24px); }
-  96%, 100% { opacity: 0; transform: translateY(-36px); }
+  0%, 58% { opacity: 0; transform: translateY(0); }
+  65%     { opacity: 1; transform: translateY(-6px); }
+  84%     { opacity: 1; transform: translateY(-20px); }
+  96%     { opacity: 0; transform: translateY(-30px); }
+  100%    { opacity: 0; transform: translateY(-30px); }
 }
 
+/* --------------------------------------------------------------------------
+   Scene fallbacks
+   -------------------------------------------------------------------------- */
+
 @media (prefers-reduced-motion: reduce) {
-  :is(.bb-court:hover, .bb-court:focus-visible, .bb-court.is-live)
-    :is(.bb-ball-x, .bb-ball-y, .bb-ball, .bb-net-back, .bb-net-front, .bb-score) {
+  .scene.is-playing :is(.bb-ball-x, .bb-ball-y, .bb-ball, .bb-net-back, .bb-net-front, .bb-score) {
     animation: none;
   }
+}
+
+/* the art needs more room than the site's 20% gutters leave on a phone */
+@media (max-width: 700px) {
+  .scenes {
+    padding: 24px 6% 0;
+    gap: 28px;
+  }
+
+  .scene__label { font-size: 14px; }
 }
