@@ -188,9 +188,14 @@ footer {
   transition: opacity 0.35s ease;
 }
 
-.bb-scene:hover .bb-hint,
 .bb-court.is-live ~ .bb-hint {
   opacity: 0.3;
+}
+
+@media (hover: hover) {
+  .bb-scene:hover .bb-hint {
+    opacity: 0.3;
+  }
 }
 
 .bb-hint span {
@@ -255,26 +260,50 @@ footer {
   opacity: 0;
 }
 
-/* the shot only runs while the scene is hovered, focused or tapped */
-:is(.bb-court:hover, .bb-court:focus-visible, .bb-court.is-live) .bb-ball-x {
+/* the shot runs while the scene is focused or tapped */
+:is(.bb-court:focus-visible, .bb-court.is-live) .bb-ball-x {
   animation: bb-flight-x 2.4s linear infinite;
 }
 
-:is(.bb-court:hover, .bb-court:focus-visible, .bb-court.is-live) .bb-ball-y {
+:is(.bb-court:focus-visible, .bb-court.is-live) .bb-ball-y {
   animation: bb-flight-y 2.4s infinite;
 }
 
-:is(.bb-court:hover, .bb-court:focus-visible, .bb-court.is-live) .bb-ball {
+:is(.bb-court:focus-visible, .bb-court.is-live) .bb-ball {
   animation: bb-backspin 2.4s linear infinite;
 }
 
-:is(.bb-court:hover, .bb-court:focus-visible, .bb-court.is-live) .bb-net-back,
-:is(.bb-court:hover, .bb-court:focus-visible, .bb-court.is-live) .bb-net-front {
+:is(.bb-court:focus-visible, .bb-court.is-live) :is(.bb-net-back, .bb-net-front) {
   animation: bb-swish 2.4s ease-out infinite;
 }
 
-:is(.bb-court:hover, .bb-court:focus-visible, .bb-court.is-live) .bb-score {
+:is(.bb-court:focus-visible, .bb-court.is-live) .bb-score {
   animation: bb-score 2.4s ease-out infinite;
+}
+
+/* ...and on hover, but only where a pointer can really hover. Touch browsers
+   leave a sticky :hover on the last element tapped, which would fight the
+   tap-to-toggle above and leave the shot running after a tap meant to stop it. */
+@media (hover: hover) {
+  .bb-court:hover .bb-ball-x {
+    animation: bb-flight-x 2.4s linear infinite;
+  }
+
+  .bb-court:hover .bb-ball-y {
+    animation: bb-flight-y 2.4s infinite;
+  }
+
+  .bb-court:hover .bb-ball {
+    animation: bb-backspin 2.4s linear infinite;
+  }
+
+  .bb-court:hover :is(.bb-net-back, .bb-net-front) {
+    animation: bb-swish 2.4s ease-out infinite;
+  }
+
+  .bb-court:hover .bb-score {
+    animation: bb-score 2.4s ease-out infinite;
+  }
 }
 
 /* horizontal travel is linear, the way a real shot behaves */
